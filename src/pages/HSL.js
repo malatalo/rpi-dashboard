@@ -17,12 +17,16 @@ const HSL = () => {
   const [modalData, setModalData] = useState();
 
   useEffect(() => {
+    refreshTimes();
+  }, []);
+
+  const refreshTimes = () => {
     const getSetTimes = async () => {
       const asd = await getStopTimes();
       setStopTimes(asd);
     };
     getSetTimes();
-  }, []);
+  }
 
   const renderStopTimes = (stopTimes) => {
     return stopTimes.map((st, i) => {
@@ -47,7 +51,7 @@ const HSL = () => {
 
   return (
     <BasePage>
-      <Clock>{getTime()}</Clock>
+      <Clock onClick={refreshTimes}>{getTime()}</Clock>
       {stopTimes ? (
         <FlexRow>
           <FlexColumn>
@@ -176,6 +180,7 @@ const Clock = styled.div`
   font-weight: bold;
   text-align: center;
   margin: 30px;
+  cursor: pointer;
 `;
 
 const Cover = styled.div`
